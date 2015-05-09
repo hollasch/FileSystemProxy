@@ -3,6 +3,7 @@
 out/
 
 # Visual Studio Generated and User Files
+*.opensdf
 *.sdf
 *.suo
 *.vcxproj.user
