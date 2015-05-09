@@ -1,0 +1,8 @@
+# Git Ignore File for FileSystemProxy
+
+out/
+
+# Visual Studio Generated and User Files
+*.sdf
+*.suo
+*.vcxproj.user
