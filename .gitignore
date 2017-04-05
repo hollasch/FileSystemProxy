@@ -1,6 +1,7 @@
 # Git Ignore File for FileSystemProxy
 
 out/
+.vs/
 
 # Visual Studio Generated and User Files
 *.opensdf
