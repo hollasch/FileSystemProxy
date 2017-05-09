@@ -1,5 +1,5 @@
 //==================================================================================================
-// fileSystemProxyMock.cpp
+// FileSystemProxyMock.cpp
 //
 //     This file contains the definitions for the file system proxy classes for the file system
 //     proxy mock object.
@@ -18,7 +18,7 @@
 // the License.
 //==================================================================================================
 
-#include "fileSystemProxyMock.h"
+#include "FileSystemProxyMock.h"
 #include <stdlib.h>
 #include <string>
 

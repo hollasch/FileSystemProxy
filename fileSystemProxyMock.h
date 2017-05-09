@@ -1,5 +1,5 @@
 //==================================================================================================
-// FileSystemProxyWindows
+// FileSystemProxyMock.h
 //
 //     Windows file system proxy, using the FileSystemProxy base.
 //
@@ -17,8 +17,8 @@
 // the License.
 //==================================================================================================
 
-#ifndef _fileSystemProxyWindows_h
-#define _fileSystemProxyWindows_h
+#ifndef _FileSystemProxyMock_h
+#define _FileSystemProxyMock_h
 
     // Includes
 
@@ -78,4 +78,4 @@ class FileSysProxyMock : public FileSysProxy {
 };   // namespace FileSystemProxy
 
 
-#endif   // _fileSystemProxyMock_h
+#endif   // _FileSystemProxyMock_h

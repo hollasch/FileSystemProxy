@@ -91,13 +91,13 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="fileSystemProxyMock.cpp" />
-    <ClCompile Include="fileSystemProxyWindows.cpp" />
+    <ClCompile Include="FileSystemProxyMock.cpp" />
+    <ClCompile Include="FileSystemProxyWindows.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fileSystemProxy.h" />
-    <ClInclude Include="fileSystemProxyMock.h" />
-    <ClInclude Include="fileSystemProxyWindows.h" />
+    <ClInclude Include="FileSystemProxy.h" />
+    <ClInclude Include="FileSystemProxyMock.h" />
+    <ClInclude Include="FileSystemProxyWindows.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

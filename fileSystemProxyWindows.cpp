@@ -1,5 +1,5 @@
 //==================================================================================================
-// fileSystemProxyWindows.cpp
+// FileSystemProxyWindows.cpp
 //
 //     This file contains the definitions for the file system proxy classes for the Windows file
 //     system.
@@ -18,7 +18,7 @@
 // the License.
 //==================================================================================================
 
-#include "fileSystemProxyWindows.h"
+#include "FileSystemProxyWindows.h"
 #include <stdlib.h>
 #include <string>
 

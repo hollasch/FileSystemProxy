@@ -18,8 +18,8 @@
 // the License.
 //==================================================================================================
 
-#ifndef _fileSystemProxy_h
-#define _fileSystemProxy_h
+#ifndef _FileSystemProxy_h
+#define _FileSystemProxy_h
 
     // Includes
 
@@ -74,4 +74,4 @@ class FileSysProxy {
 };  // namespace FileSystemProxy
 
 
-#endif   // ifndef _fileSystemProxy_h
+#endif   // ifndef _FileSystemProxy_h

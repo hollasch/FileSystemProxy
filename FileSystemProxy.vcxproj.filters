@@ -15,21 +15,21 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="fileSystemProxyMock.cpp">
+    <ClCompile Include="FileSystemProxyMock.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fileSystemProxyWindows.cpp">
+    <ClCompile Include="FileSystemProxyWindows.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fileSystemProxy.h">
+    <ClInclude Include="FileSystemProxy.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fileSystemProxyMock.h">
+    <ClInclude Include="FileSystemProxyMock.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="fileSystemProxyWindows.h">
+    <ClInclude Include="FileSystemProxyWindows.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
