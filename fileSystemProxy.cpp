@@ -1,8 +1,8 @@
 //==================================================================================================
-// FileSystemProxy
+// FileSystemProxy.cpp
 //
-// Declarations for the file system proxy classes. These objects proxy the file system of the
-// underlying operating system, or test harness.
+//     This file contains the definitions for the file system proxy classes for the Windows file
+//     system.
 //
 // _________________________________________________________________________________________________
 // Copyright © 2017 Steve Hollasch
@@ -28,57 +28,71 @@
 // SOFTWARE.
 //==================================================================================================
 
-#ifndef _FileSystemProxy_h
-#define _FileSystemProxy_h
-
+#include "FileSystemProxy.h"
+#include <stdlib.h>
 #include <string>
+#include <filesystem>
+
+using namespace std;
+using namespace FSProxy;
 
 
 
-namespace FSProxy {
+/*
+// Directory Iterator Methods
+
+DirectoryIterator::DirectoryIterator (const wstring path)
+{
+    // NOT YET IMPLEMENTED
+}
+
+DirectoryIterator::~DirectoryIterator()
+{
+    // NOT YET IMPLEMENTED
+}
 
 
-class DirectoryIterator {
+*/
+bool DirectoryIterator::next()
+{
+    // Advances the iterator to the first/next entry.
 
-    // This abstract base class provides a way to iterate through file & directory entries in a
-    // directory.
-
-  public:
-    DirectoryIterator (const std::wstring path) {} 
-    virtual ~DirectoryIterator() {}
-
-    // Advance to first/next entry.
-    virtual bool next();
-
-    // True => current entry is a directory.
-    virtual bool isDirectory() const;
-
-    // Return name of the current entry.
-    virtual const wchar_t* name() const;
-};
-
-
-
-class FileSysProxy {
-
-    // This abstract base class provides a general file system interface across different file
-    // systems, including test harnesses.
-
-  public:
-    virtual ~FileSysProxy() {}
-
-    virtual size_t maxPathLength() const = 0;
-
-    // Return a directory iterator object. NOTE: User must delete this object! It is recommended
-    // that you hold the return value in a unique_ptr<>.
-    virtual DirectoryIterator* newDirectoryIterator (const std::wstring path) const = 0;
-
-    // Set the current working directory. Returns false if the directory does not exist.
-    virtual bool setCurrentDirectory (const std::wstring path) = 0;
-};
+    // NOT YET IMPLEMENTED
+    return false;
+}
 
 
 
-};  // namespace FileSystemProxy
+bool DirectoryIterator::isDirectory() const
+{
+    // Returns true if the current entry is a directory.
 
-#endif   // ifndef _FileSystemProxy_h
+    // NOT YET IMPLEMENTED
+    return false;
+}
+
+
+
+const wchar_t* DirectoryIterator::name() const
+{
+    // Returns the name of the current entry.
+
+    // NOT YET IMPLEMENTED
+    return L"";
+}
+
+
+
+DirectoryIterator* FileSysProxy::newDirectoryIterator (const wstring path) const
+{
+    return new DirectoryIterator(path);
+}
+
+
+bool FileSysProxy::setCurrentDirectory (const wstring path)
+{
+    // Sets the current working directory. Returns true if the directory is valid.
+
+    // NOT YET IMPLEMENTED
+    return true;
+}
