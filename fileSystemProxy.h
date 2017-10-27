@@ -5,9 +5,9 @@
 // underlying operating system, or test harness.
 //
 // _________________________________________________________________________________________________
-// MIT License
-//
 // Copyright © 2017 Steve Hollasch
+//
+// MIT License
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -44,7 +44,7 @@ class DirectoryIterator {
     // directory.
 
   public:
-    DirectoryIterator() {}
+    DirectoryIterator (const std::wstring path) {} 
     virtual ~DirectoryIterator() {}
 
     // Advance to first/next entry. Returns true until there are no more directory entries.

@@ -91,6 +91,7 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="fileSystemProxy.cpp" />
     <ClCompile Include="FileSystemProxyMock.cpp" />
     <ClCompile Include="FileSystemProxyWindows.cpp" />
   </ItemGroup>

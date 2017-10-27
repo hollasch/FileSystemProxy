@@ -1,5 +1,5 @@
 //==================================================================================================
-// FileSystemProxyWindows.cpp
+// FileSystemProxy.cpp
 //
 //     This file contains the definitions for the file system proxy classes for the Windows file
 //     system.
@@ -28,70 +28,71 @@
 // SOFTWARE.
 //==================================================================================================
 
-#include "FileSystemProxyWindows.h"
+#include "FileSystemProxy.h"
 #include <stdlib.h>
 #include <string>
+#include <filesystem>
 
 using namespace std;
 using namespace FSProxy;
 
 
 
+/*
 // Directory Iterator Methods
 
-DirectoryIteratorWindows::DirectoryIteratorWindows (const wstring path)
-  : m_started(false)
+DirectoryIterator::DirectoryIterator (const wstring path)
 {
-    m_findHandle = FindFirstFile(path.c_str(), &m_findData);
+    // NOT YET IMPLEMENTED
 }
 
-DirectoryIteratorWindows::~DirectoryIteratorWindows()
+DirectoryIterator::~DirectoryIterator()
 {
-    FindClose (m_findHandle);
+    // NOT YET IMPLEMENTED
 }
 
 
-
-bool DirectoryIteratorWindows::next()
+*/
+bool DirectoryIterator::next()
 {
     // Advances the iterator to the first/next entry.
 
-    if (m_started)
-        return 0 != FindNextFile(m_findHandle, &m_findData);
-
-    m_started = true;
-    return m_findHandle != INVALID_HANDLE_VALUE;
+    // NOT YET IMPLEMENTED
+    return false;
 }
 
 
 
-bool DirectoryIteratorWindows::isDirectory() const
+bool DirectoryIterator::isDirectory() const
 {
     // Returns true if the current entry is a directory.
-    return 0 != (m_findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
+
+    // NOT YET IMPLEMENTED
+    return false;
 }
 
 
 
-const wchar_t* DirectoryIteratorWindows::name() const
+const wchar_t* DirectoryIterator::name() const
 {
     // Returns the name of the current entry.
-    return m_findData.cFileName;
+
+    // NOT YET IMPLEMENTED
+    return L"";
 }
 
 
 
-DirectoryIterator* FileSysProxyWindows::newDirectoryIterator (const wstring path) const
+DirectoryIterator* FileSysProxy::newDirectoryIterator (const wstring path) const
 {
-    return new DirectoryIteratorWindows(path);
+    return new DirectoryIterator(path);
 }
 
 
-bool FileSysProxyWindows::setCurrentDirectory (const wstring path)
+bool FileSysProxy::setCurrentDirectory (const wstring path)
 {
     // Sets the current working directory. Returns true if the directory is valid.
-    m_currentDir = path;
 
-    // NOT YET IMPLEMENTED: For now, just always accept the directory.
+    // NOT YET IMPLEMENTED
     return true;
 }
