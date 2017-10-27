@@ -35,7 +35,7 @@
 
 
 
-namespace FSProxy {
+namespace FileSystemProxy {
 
 
 class DirectoryIterator {
@@ -47,34 +47,41 @@ class DirectoryIterator {
     DirectoryIterator() {}
     virtual ~DirectoryIterator() {}
 
-    // Advance to first/next entry.
+    // Advance to first/next entry. Returns true until there are no more directory entries.
     virtual bool next() = 0;
 
     // True => current entry is a directory.
     virtual bool isDirectory() const = 0;
 
+    // True => current entry is a file.
+    virtual bool isFile() const = 0;
+
     // Return name of the current entry.
-    virtual const wchar_t* name() const = 0;
+    virtual const std::string name() const = 0;
 };
 
 
 
-class FileSysProxy {
+class FSProxy {
 
     // This abstract base class provides a general file system interface across different file
     // systems, including test harnesses.
 
   public:
-    virtual ~FileSysProxy() {}
+    FSProxy (const std::string startingDirectory) { };
+    virtual ~FSProxy() {}
 
-    virtual size_t maxPathLength() const = 0;
-
-    // Return a directory iterator object. NOTE: User must delete this object! It is recommended
-    // that you hold the return value in a unique_ptr<>.
-    virtual DirectoryIterator* newDirectoryIterator (const std::wstring path) const = 0;
+    // Returns the maximum path length of the file system. For file systems without a maxmimum path
+    // length, returns zero.
+    virtual size_t maxPathLength() const { return 0; }
 
     // Set the current working directory. Returns false if the directory does not exist.
-    virtual bool setCurrentDirectory (const std::wstring path) = 0;
+    virtual bool setCurrentDirectory (const std::string path) = 0;
+
+    // Return a directory iterator object. If the path is empty, then it iterates the current
+    // working directory. NOTE: User must delete this object! It is recommended that you hold the
+    // return value in a unique_ptr<>.
+    virtual DirectoryIterator* newDirectoryIterator (const std::string path) const = 0;
 };
 
 
