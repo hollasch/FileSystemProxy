@@ -68,7 +68,7 @@ class FSProxy {
     // systems, including test harnesses.
 
   public:
-    FSProxy (const std::string startingDirectory) { };
+    FSProxy() { };
     virtual ~FSProxy() {}
 
     // Returns the maximum path length of the file system. For file systems without a maxmimum path
