@@ -78,6 +78,11 @@ MockFS::~MockFS() {
 }
 
 
+size_t MockFS::maxPathLength() const {
+    return 0;   // Indicate unlimited path length.
+}
+
+
 DirectoryIterator* MockFS::newDirectoryIterator (const string path) const
 {
     // Not Yet Implemented
