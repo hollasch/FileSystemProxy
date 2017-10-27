@@ -1,7 +1,7 @@
 //==================================================================================================
 // FileSystemProxyMock.h
 //
-//     Windows file system proxy, using the FileSystemProxy base.
+//     Mock file system proxy.
 //
 // _________________________________________________________________________________________________
 // MIT License
@@ -30,26 +30,22 @@
 #ifndef _FileSystemProxyMock_h
 #define _FileSystemProxyMock_h
 
-    // Includes
+// Includes
 
 #include <FileSystemProxy.h>
-#include <windows.h>
 #include <string>
 
 
-namespace FSProxy {
-
-
-const size_t c_MaxPath = 256;     // Maximum path length in mock file system.
+namespace FileSystemProxy {
 
 
 
-class DirectoryIteratorMock : public DirectoryIterator {
+class MockDirectoryIterator : public DirectoryIterator {
     // This class implements a directory iterator for the mock file system.
 
   public:
-    DirectoryIteratorMock (const std::wstring path);
-    ~DirectoryIteratorMock();
+    MockDirectoryIterator (const std::string path);
+    ~MockDirectoryIterator();
 
     // Advance to first/next entry.
     bool next() override;
@@ -57,31 +53,34 @@ class DirectoryIteratorMock : public DirectoryIterator {
     // True => current entry is a directory.
     bool isDirectory() const override;
 
+    // True => current entry is a file.
+    bool isFile() const override;
+
     // Return name of the current entry.
-    const wchar_t* name() const override;
+    const std::string name() const override;
 };
 
 
 
-class FileSysProxyMock : public FileSysProxy {
+class MockFS : public FSProxy {
     // This class provides an mock file system to test out the generic FileSysProxy class.
 
   public:
-    FileSysProxyMock (const std::wstring mockDirFileName);
-    virtual ~FileSysProxyMock() {}
+    MockFS (std::string mockDirFileName, const std::string startingDirectory);
+    virtual ~MockFS();
 
-    size_t maxPathLength() const override { return c_MaxPath; }
+    size_t maxPathLength() const override;
 
-    // Return a directory iterator object.
-    // NOTE: User must delete this object!
-    DirectoryIterator* newDirectoryIterator (const std::wstring path) const;
+    // Return a directory iterator object. If the path is empty, then it iterates the current
+    // working directory. NOTE: User must delete this object! It is recommended that you hold the
+    // return value in a unique_ptr<>.
+    DirectoryIterator* newDirectoryIterator (const std::string path) const override;
 
     // Set the current working directory. Returns true if the directory does not exist.
-    virtual bool setCurrentDirectory (const std::wstring path);
+    bool setCurrentDirectory (const std::string path) override;
 
   private: 
-    FILE*        m_mockDirFile;     // Mock Directory Source File
-    std::wstring m_currentDir;      // Current working directory
+    std::string m_currentDir;      // Current working directory
 };
 
 
