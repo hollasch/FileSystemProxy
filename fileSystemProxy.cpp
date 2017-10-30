@@ -34,17 +34,18 @@
 #include <filesystem>
 
 using namespace std;
-using namespace FSProxy;
+using namespace FileSystemProxy;
 
 
 
-/*
+// _________________________________________________________________________________________________
 // Directory Iterator Methods
 
-DirectoryIterator::DirectoryIterator (const wstring path)
+DirectoryIterator::DirectoryIterator (const string path)
 {
     // NOT YET IMPLEMENTED
 }
+
 
 DirectoryIterator::~DirectoryIterator()
 {
@@ -52,7 +53,6 @@ DirectoryIterator::~DirectoryIterator()
 }
 
 
-*/
 bool DirectoryIterator::next()
 {
     // Advances the iterator to the first/next entry.
@@ -60,7 +60,6 @@ bool DirectoryIterator::next()
     // NOT YET IMPLEMENTED
     return false;
 }
-
 
 
 bool DirectoryIterator::isDirectory() const
@@ -72,27 +71,44 @@ bool DirectoryIterator::isDirectory() const
 }
 
 
+bool DirectoryIterator::isFile() const
+{
+    // Returns true if the current entry is a directory.
 
-const wchar_t* DirectoryIterator::name() const
+    // NOT YET IMPLEMENTED
+    return false;
+}
+
+
+const string DirectoryIterator::name() const
 {
     // Returns the name of the current entry.
 
     // NOT YET IMPLEMENTED
-    return L"";
+    return string("");
 }
 
 
 
-DirectoryIterator* FileSysProxy::newDirectoryIterator (const wstring path) const
-{
-    return new DirectoryIterator(path);
+// _________________________________________________________________________________________________
+// FSProxy Methods
+
+
+FSProxy::FSProxy() {
+}
+
+FSProxy::~FSProxy() {
 }
 
 
-bool FileSysProxy::setCurrentDirectory (const wstring path)
-{
+bool FSProxy::setCurrentDirectory (const string path) {
     // Sets the current working directory. Returns true if the directory is valid.
 
     // NOT YET IMPLEMENTED
     return true;
+}
+
+
+DirectoryIterator* FSProxy::newDirectoryIterator (const string path) const {
+    return new DirectoryIterator(path);
 }

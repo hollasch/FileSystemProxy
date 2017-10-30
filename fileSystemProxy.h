@@ -44,20 +44,20 @@ class DirectoryIterator {
     // directory.
 
   public:
-    DirectoryIterator (const std::wstring path) {} 
-    virtual ~DirectoryIterator() {}
+    DirectoryIterator (const std::string path);
+    virtual ~DirectoryIterator();
 
     // Advance to first/next entry. Returns true until there are no more directory entries.
-    virtual bool next() = 0;
+    virtual bool next();
 
     // True => current entry is a directory.
-    virtual bool isDirectory() const = 0;
+    virtual bool isDirectory() const;
 
     // True => current entry is a file.
-    virtual bool isFile() const = 0;
+    virtual bool isFile() const;
 
     // Return name of the current entry.
-    virtual const std::string name() const = 0;
+    virtual const std::string name() const;
 };
 
 
@@ -68,20 +68,20 @@ class FSProxy {
     // systems, including test harnesses.
 
   public:
-    FSProxy() { };
-    virtual ~FSProxy() {}
+    FSProxy();
+    virtual ~FSProxy();
 
     // Returns the maximum path length of the file system. For file systems without a maxmimum path
     // length, returns zero.
     virtual size_t maxPathLength() const { return 0; }
 
     // Set the current working directory. Returns false if the directory does not exist.
-    virtual bool setCurrentDirectory (const std::string path) = 0;
+    virtual bool setCurrentDirectory (const std::string path);
 
     // Return a directory iterator object. If the path is empty, then it iterates the current
     // working directory. NOTE: User must delete this object! It is recommended that you hold the
     // return value in a unique_ptr<>.
-    virtual DirectoryIterator* newDirectoryIterator (const std::string path) const = 0;
+    virtual DirectoryIterator* newDirectoryIterator (const std::string path) const;
 };
 
 
