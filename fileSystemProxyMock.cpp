@@ -36,7 +36,9 @@ using namespace std;
 using namespace FileSystemProxy;
 
 
-MockDirectoryIterator::MockDirectoryIterator (const string path) {
+MockDirectoryIterator::MockDirectoryIterator (const string path)
+    : DirectoryIterator(path) {
+
     // Not yet implemented.
 }
 
