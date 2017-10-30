@@ -37,17 +37,17 @@
 #include <string>
 
 
-namespace FSProxy {
+namespace FileSystemProxy {
 
 
-class DirectoryIteratorWindows : public DirectoryIterator {
+class WindowsDirectoryIterator : public DirectoryIterator {
 
     // This class provides a way to iterate through file & directory entries in a Windows
     // file system.
 
   public:
-    DirectoryIteratorWindows (const std::wstring path);
-    ~DirectoryIteratorWindows();
+    WindowsDirectoryIterator (const std::string path);
+    ~WindowsDirectoryIterator();
 
     // Advance to first/next entry.
     bool next() override;
@@ -55,8 +55,11 @@ class DirectoryIteratorWindows : public DirectoryIterator {
     // True => current entry is a directory.
     bool isDirectory() const override;
 
+    // True => current entry is a file.
+    bool isFile() const override;
+
     // Return name of the current entry.
-    const wchar_t* name() const override;
+    const std::string name() const override;
 
   private:
     bool            m_started;      // True => directory iteration started
@@ -66,24 +69,25 @@ class DirectoryIteratorWindows : public DirectoryIterator {
 
 
 
-class FileSysProxyWindows : public FileSysProxy {
+class WindowsFS : public FSProxy {
 
     // This class provides a general file system interface for Windows.
 
   public:
-    virtual ~FileSysProxyWindows() {}
+    WindowsFS();
+    virtual ~WindowsFS();
 
     size_t maxPathLength() const override { return _MAX_PATH; }
 
     // Return a directory iterator object.
     // NOTE: User must delete this object!
-    DirectoryIterator* newDirectoryIterator (const std::wstring path) const;
+    DirectoryIterator* newDirectoryIterator (const std::string path) const override;
 
     // Set the current working directory. Returns true if the directory does not exist.
-    virtual bool setCurrentDirectory (const std::wstring path);
+    bool setCurrentDirectory (const std::string path) override;
 
   private:
-    std::wstring m_currentDir;     // Current working directory
+    std::string m_currentDir;     // Current working directory
 };
 
 

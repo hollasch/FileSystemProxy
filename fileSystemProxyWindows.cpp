@@ -33,26 +33,26 @@
 #include <string>
 
 using namespace std;
-using namespace FSProxy;
+using namespace FileSystemProxy;
 
 
 
 // Directory Iterator Methods
 
-DirectoryIteratorWindows::DirectoryIteratorWindows (const wstring path)
-  : m_started(false)
+WindowsDirectoryIterator::WindowsDirectoryIterator (const string path)
+  : m_started(false), DirectoryIterator(path)
 {
     m_findHandle = FindFirstFile(path.c_str(), &m_findData);
 }
 
-DirectoryIteratorWindows::~DirectoryIteratorWindows()
+WindowsDirectoryIterator::~WindowsDirectoryIterator()
 {
     FindClose (m_findHandle);
 }
 
 
 
-bool DirectoryIteratorWindows::next()
+bool WindowsDirectoryIterator::next()
 {
     // Advances the iterator to the first/next entry.
 
@@ -65,7 +65,7 @@ bool DirectoryIteratorWindows::next()
 
 
 
-bool DirectoryIteratorWindows::isDirectory() const
+bool WindowsDirectoryIterator::isDirectory() const
 {
     // Returns true if the current entry is a directory.
     return 0 != (m_findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
@@ -73,21 +73,21 @@ bool DirectoryIteratorWindows::isDirectory() const
 
 
 
-const wchar_t* DirectoryIteratorWindows::name() const
+const string WindowsDirectoryIterator::name() const
 {
     // Returns the name of the current entry.
-    return m_findData.cFileName;
+    return string(m_findData.cFileName);
 }
 
 
 
-DirectoryIterator* FileSysProxyWindows::newDirectoryIterator (const wstring path) const
+DirectoryIterator* WindowsFS::newDirectoryIterator (const string path) const
 {
-    return new DirectoryIteratorWindows(path);
+    return new WindowsDirectoryIterator(path);
 }
 
 
-bool FileSysProxyWindows::setCurrentDirectory (const wstring path)
+bool WindowsFS::setCurrentDirectory (const string path)
 {
     // Sets the current working directory. Returns true if the directory is valid.
     m_currentDir = path;
