@@ -36,24 +36,47 @@ using namespace std;
 using namespace FileSystemProxy;
 
 
+// Helper Methods
+
+static string toUTF8 (const wchar_t *str) {
+    int len    = static_cast<int>(wcslen(str));
+    auto nChars = WideCharToMultiByte (CP_UTF8, 0, str, len, NULL, 0, NULL, NULL);
+
+    if (nChars == 0)
+        return "";
+
+    string utf8String;
+    utf8String.resize(nChars);
+
+    WideCharToMultiByte (CP_UTF8, 0, str, len, const_cast<char*>(utf8String.c_str()), nChars, NULL, NULL); 
+
+    return utf8String;
+}
+
+
 
 // Directory Iterator Methods
 
 WindowsDirectoryIterator::WindowsDirectoryIterator (const string path)
-  : m_started(false), DirectoryIterator(path)
-{
-    m_findHandle = FindFirstFile(path.c_str(), &m_findData);
+  : m_started(false), DirectoryIterator(path) {
+
+    auto pathSize = path.length() + 1;
+    auto wPath = new wchar_t [pathSize];
+    size_t convertedCount = 0;
+    mbstowcs_s (&convertedCount, wPath, pathSize, path.c_str(), _TRUNCATE);
+
+    m_findHandle = FindFirstFile(wPath, &m_findData);
+
+    delete[] wPath;
 }
 
-WindowsDirectoryIterator::~WindowsDirectoryIterator()
-{
+WindowsDirectoryIterator::~WindowsDirectoryIterator() {
     FindClose (m_findHandle);
 }
 
 
 
-bool WindowsDirectoryIterator::next()
-{
+bool WindowsDirectoryIterator::next() {
     // Advances the iterator to the first/next entry.
 
     if (m_started)
@@ -65,30 +88,32 @@ bool WindowsDirectoryIterator::next()
 
 
 
-bool WindowsDirectoryIterator::isDirectory() const
-{
+bool WindowsDirectoryIterator::isDirectory() const {
     // Returns true if the current entry is a directory.
     return 0 != (m_findData.dwFileAttributes & FILE_ATTRIBUTE_DIRECTORY);
 }
 
 
 
-const string WindowsDirectoryIterator::name() const
-{
+const string WindowsDirectoryIterator::name() const {
     // Returns the name of the current entry.
-    return string(m_findData.cFileName);
+    auto fileName = toUTF8 (m_findData.cFileName);
+    return string(fileName);
+}
+
+
+const wstring WindowsDirectoryIterator::nameW() const {
+    return wstring(m_findData.cFileName);
 }
 
 
 
-DirectoryIterator* WindowsFS::newDirectoryIterator (const string path) const
-{
+DirectoryIterator* WindowsFS::newDirectoryIterator (const string path) const {
     return new WindowsDirectoryIterator(path);
 }
 
 
-bool WindowsFS::setCurrentDirectory (const string path)
-{
+bool WindowsFS::setCurrentDirectory (const string path) {
     // Sets the current working directory. Returns true if the directory is valid.
     m_currentDir = path;
 

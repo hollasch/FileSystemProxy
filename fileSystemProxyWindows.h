@@ -61,6 +61,9 @@ class WindowsDirectoryIterator : public DirectoryIterator {
     // Return name of the current entry.
     const std::string name() const override;
 
+    // Return the Windows wchar_t* name of the current entry.
+    virtual const std::wstring nameW() const;
+
   private:
     bool            m_started;      // True => directory iteration started
     HANDLE          m_findHandle;   // Directory Find Context
