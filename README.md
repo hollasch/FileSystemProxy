@@ -1,4 +1,4 @@
-FileSystemProxy - DEPRECATED
+FileSystemProxy - _**Deprecated**_
 ====================================================================================================
 
 Originally this was a C++ class to proxy the file system on Windows, Mac and Linux, and support mock
